@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Complaints | Road Welfare System</title>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+
+<div>
+
+<h2>
+📋 Complaints Management
+</h2>
+
+<p>
+Review and manage citizen complaints
+</p>
+
+</div>
+
+
+
+<button onclick="logout()">
+Logout
+</button>
+
+
+</header>
+
+
+
+
+
+<div class="dashboard-container">
+
+
+
+<h1>
+All Complaints
+</h1>
+
+
+
+<!-- SEARCH + FILTER -->
+
+
+<div class="admin-filter-box">
+
+
+<input
+
+id="searchInput"
+
+type="text"
+
+placeholder="🔍 Search complaint, user, category..."
+
+>
+
+
+
+<select id="statusFilter">
+
+
+<option value="All">
+All Status
+</option>
+
+
+<option value="Pending">
+Pending
+</option>
+
+
+<option value="In Progress">
+In Progress
+</option>
+
+
+<option value="Resolved">
+Resolved
+</option>
+
+
+</select>
+
+
+
+
+
+<select id="categoryFilter">
+
+
+<option value="All">
+All Categories
+</option>
+
+
+<option value="Pothole">
+Pothole
+</option>
+
+
+<option value="Broken Road">
+Broken Road
+</option>
+
+
+<option value="Street Light">
+Street Light
+</option>
+
+
+<option value="Traffic Signal">
+Traffic Signal
+</option>
+
+
+<option value="Other">
+Other
+</option>
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="adminReports">
+
+
+<div class="loading-box">
+
+
+<h3>
+Loading complaints...
+</h3>
+
+
+<p>
+Fetching citizen reports
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ADMIN NAVIGATION -->
+
+
+<nav class="admin-bottom-nav">
+
+
+<a href="admin.html" class="admin-nav-item">
+
+
+<span>
+🏠
+</span>
+
+
+<small>
+Dashboard
+</small>
+
+
+</a>
+
+
+
+
+<a href="admin-complaints.html" class="admin-nav-item active">
+
+
+<span>
+📋
+</span>
+
+
+<small>
+Complaints
+</small>
+
+
+</a>
+
+
+
+
+
+<a href="admin-analytics.html" class="admin-nav-item">
+
+
+<span>
+📊
+</span>
+
+
+<small>
+Analytics
+</small>
+
+
+</a>
+
+
+
+
+
+<a href="admin-profile.html" class="admin-nav-item">
+
+
+<span>
+👤
+</span>
+
+
+<small>
+Admin
+</small>
+
+
+</a>
+
+
+
+</nav>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/config.js"></script>
+
+<script src="js/common.js"></script>
+
+<script src="js/admin-complaints.js"></script>
+
+
+</body>
+
+</html>

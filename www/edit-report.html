@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Complaint | Road Welfare System</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <h2>✏ Edit Complaint</h2>
+
+        <button type="button" onclick="history.back()">
+            ← Back
+        </button>
+
+    </header>
+
+
+    <div class="form-container">
+
+        <h1>Edit Complaint Details</h1>
+
+        <form id="editForm" onsubmit="event.preventDefault(); updateReport();">
+
+            <input
+                type="text"
+                id="title"
+                placeholder="Issue Title"
+                required>
+
+            <textarea
+                id="description"
+                placeholder="Describe the problem"
+                required></textarea>
+
+            <select id="category" required>
+
+                <option value="">Select Category</option>
+
+                <option value="Pothole">Pothole</option>
+
+                <option value="Broken Road">Broken Road</option>
+
+                <option value="Street Light">Street Light</option>
+
+                <option value="Traffic Signal">Traffic Signal</option>
+
+                <option value="Other">Other</option>
+
+            </select>
+
+            <input
+                type="text"
+                id="address"
+                placeholder="Location Address">
+
+            <button type="submit">
+                💾 Save Changes
+            </button>
+
+            <button
+                type="button"
+                onclick="history.back()">
+                Cancel
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/config.js"></script>
+
+    <script src="js/common.js"></script>
+
+    <script src="js/edit-report.js"></script>
+    
+
+</body>
+
+</html>

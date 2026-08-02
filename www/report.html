@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Report Issue | Road Welfare System</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+    <header class="navbar">
+
+        <h2>
+            🚧 Report Road Issue
+        </h2>
+
+
+        <button onclick="window.location.href='user.html'">
+            Back
+        </button>
+
+
+    </header>
+
+
+
+    <div class="form-container">
+
+
+        <h1>
+            Submit Complaint
+        </h1>
+
+
+
+        <form id="reportForm">
+
+
+            <input type="text" id="title" placeholder="Issue Title" required>
+
+
+
+            <textarea id="description" placeholder="Describe the problem" required></textarea>
+
+
+
+            <select id="category" required>
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option value="Pothole">
+                    Pothole
+                </option>
+
+                <option value="Broken Road">
+                    Broken Road
+                </option>
+
+                <option value="Street Light">
+                    Broken Street Light
+                </option>
+
+                <option value="Traffic Signal">
+                    Traffic Signal
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+
+
+            <input type="text" id="address" placeholder="Location Address">
+
+            <input type="file" id="image" accept="image/*">
+
+
+            <button type="button" onclick="getLocation()">
+
+                📍 Get Current Location
+
+            </button>
+
+
+            <p id="locationText"></p>
+
+
+
+            <button type="submit">
+
+                Submit Report
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+
+
+        <a href="user.html" class="nav-item">
+            <span>🏠</span>
+            <small>Dashboard</small>
+        </a>
+
+        <a href="reports.html" class="nav-item">
+            <span>📋</span>
+            <small>Reports</small>
+        </a>
+
+        <a href="profile.html" class="nav-item">
+            <span>👤</span>
+            <small>Profile</small>
+        </a>
+
+    </nav>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/config.js"></script>
+
+    <script src="js/common.js"></script>
+
+    <script src="js/report.js"></script>
+
+    <script src="js/auth.js"></script>
+
+    <script src="js/navigation.js"></script>
+
+
+</body>
+
+</html>

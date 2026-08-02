@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Road Welfare System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="background">
+
+        <div class="circle one"></div>
+        <div class="circle two"></div>
+        <div class="circle three"></div>
+
+    </div>
+
+    <div class="container">
+
+        <div class="hero-card">
+
+            <div class="logo-box">
+
+                <div class="logo-icon">
+
+                    <img src="assets/logo.png" alt="Road Welfare Logo">
+
+                </div>
+
+                <h1>
+
+                    Road Welfare System
+
+                </h1>
+
+                <p>
+
+                    Making Roads Safer Together
+
+                </p>
+
+            </div>
+
+            <div class="hero-image">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Road Welfare">
+
+            </div>
+
+            <div class="hero-text">
+
+                <h2>
+
+                    Better Roads.<br>
+                    Better Future.
+
+                </h2>
+
+                <p>
+
+                    Report potholes, damaged roads, broken street lights and other civic issues directly to the
+                    authorities and track every complaint in real time.
+
+                </p>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <a href="signup.html" class="btn-primary">
+
+                    Get Started
+
+                </a>
+
+                <a href="login.html" class="btn-secondary">
+
+                    Already have an account? Login
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        (async () => {
+
+            const { data } =
+                await window.supabaseClient.auth.getSession();
+
+            if (!data.session) return;
+
+            const user = data.session.user;
+
+            const { data: profile } =
+                await window.supabaseClient
+                    .from("profiles")
+                    .select("role")
+                    .eq("id", user.id)
+                    .single();
+
+            if (profile?.role === "admin") {
+
+                window.location.href = "admin.html";
+
+            } else {
+
+                window.location.href = "user.html";
+
+            }
+
+        })();
+    </script>
+
+</body>
+
+</html>

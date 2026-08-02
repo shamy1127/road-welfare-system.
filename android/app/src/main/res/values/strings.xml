@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Road Welfare System</string>
+    <string name="title_activity_main">Road Welfare System</string>
+    <string name="package_name">com.roadwelfare.system</string>
+    <string name="custom_url_scheme">com.roadwelfare.system</string>
+</resources>

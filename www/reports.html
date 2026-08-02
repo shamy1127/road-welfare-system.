@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Reports | Road Welfare System</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ===========================
+    NAVBAR
+    =========================== -->
+
+    <header class="navbar">
+
+        <h2>
+            📋 My Reports
+        </h2>
+
+        <div class="nav-actions">
+
+            <button id="notificationBtn">
+                🔔
+                <span id="notificationCount">0</span>
+            </button>
+
+            <button onclick="window.location.href='user.html'">
+                🏠 Dashboard
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- ===========================
+    NOTIFICATIONS
+    =========================== -->
+
+    <div id="notificationBox" class="notification-box">
+
+        <h3>🔔 Notifications</h3>
+
+        <div id="notificationList">
+
+            <p>No notifications</p>
+
+        </div>
+
+    </div>
+
+    <!-- ===========================
+    REPORTS
+    =========================== -->
+
+    <section class="reports">
+
+        <div class="report-controls">
+
+            <input type="text" id="searchReport" placeholder="🔍 Search by title, category or address..."
+                onkeyup="filterReports()">
+
+            <select id="statusFilter" onchange="filterReports()">
+
+                <option value="All">
+                    All Status
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="In Progress">
+                    In Progress
+                </option>
+
+                <option value="Resolved">
+                    Resolved
+                </option>
+
+            </select>
+
+        </div>
+
+        <h2>My Reports</h2>
+
+        <div id="reportContainer">
+
+            <div class="loading-box">
+
+                <h3>Loading reports...</h3>
+
+                <p>Please wait while your complaints are being fetched.</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===========================
+    COMPLAINT DETAILS MODAL
+    =========================== -->
+
+    <div id="complaintModal" class="modal">
+
+        <div class="modal-content">
+
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+
+            <img id="modalImage" class="modal-image">
+
+            <h2 id="modalTitle"></h2>
+
+            <p id="modalDescription"></p>
+
+            <div class="modal-info">
+
+                <p>
+                    <strong>Category:</strong>
+                    <span id="modalCategory"></span>
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <span id="modalStatus"></span>
+                </p>
+
+                <p>
+                    <strong>Address:</strong>
+                    <span id="modalAddress"></span>
+                </p>
+
+                <p>
+                    <strong>Latitude:</strong>
+                    <span id="modalLatitude"></span>
+                </p>
+
+                <p>
+                    <strong>Longitude:</strong>
+                    <span id="modalLongitude"></span>
+                </p>
+
+                <p>
+                    <strong>Date:</strong>
+                    <span id="modalDate"></span>
+                </p>
+
+            </div>
+
+            <div class="modal-buttons">
+
+                <button id="mapButton">
+                    📍 Open in Google Maps
+                </button>
+
+                <button id="editButton">
+                    ✏ Edit
+                </button>
+
+                <button id="deleteButton">
+                    🗑 Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===========================
+    TOAST
+    =========================== -->
+
+    <div id="toast">
+
+        <div class="toast-header">
+
+            <div class="toast-logo">
+                🚧
+            </div>
+
+            <div class="toast-title">
+
+                <h3>Road Welfare System</h3>
+
+                <small id="toastTime">
+                    Just now
+                </small>
+
+            </div>
+
+            <button id="toastClose">
+                ✕
+            </button>
+
+        </div>
+
+        <div id="toastMessage"></div>
+
+        <div class="toast-progress"></div>
+
+    </div>
+
+
+
+
+    <!-- Floating Report Button -->
+    <a href="report.html" class="floating-report-btn" title="Report Issue">
+        +
+    </a>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+
+
+        <a href="user.html" class="nav-item">
+            <span>🏠</span>
+            <small>Dashboard</small>
+        </a>
+
+        <a href="reports.html" class="nav-item active">
+            <span>📋</span>
+            <small>Reports</small>
+        </a>
+
+        <a href="profile.html" class="nav-item">
+            <span>👤</span>
+            <small>Profile</small>
+        </a>
+
+    </nav>
+
+    <!-- ===========================
+    SCRIPTS
+    =========================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/config.js"></script>
+
+    <script src="js/common.js"></script>
+
+    <script src="js/notification.js"></script>
+
+    <script src="js/reports.js"></script>
+
+
+
+</body>
+
+</html>

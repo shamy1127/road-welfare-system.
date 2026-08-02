@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | Road Welfare System</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+NAVBAR
+========================================== -->
+
+    <header class="navbar">
+
+        <div>
+
+            <h2>🚧 Road Welfare Admin</h2>
+
+            <p>Complaint Management Portal</p>
+
+        </div>
+
+        <button onclick="logout()">
+
+            🚪 Logout
+
+        </button>
+
+    </header>
+
+
+
+    <div class="dashboard-container">
+
+
+
+
+        <!-- ==========================================
+ADMIN HERO
+========================================== -->
+
+        <section class="hero">
+
+            <div>
+
+                <h1>
+
+                    Welcome Administrator 👋
+
+                </h1>
+
+                <p>
+
+                    Manage complaints, monitor city road conditions,
+                    track complaint statistics and keep the Road Welfare
+                    System running efficiently.
+
+                </p>
+
+            </div>
+
+            <button onclick="location.href='admin-complaints.html'">
+
+                📋 Manage Complaints
+
+            </button>
+
+        </section>
+
+
+
+
+
+        <!-- ==========================================
+STATISTICS
+========================================== -->
+
+        <section class="admin-stats">
+
+            <div class="stat-card">
+
+                <h2 id="totalReports">0</h2>
+
+                <p>Total Reports</p>
+
+            </div>
+
+            <div class="stat-card pending-card">
+
+                <h2 id="pendingReports">0</h2>
+
+                <p>Pending</p>
+
+            </div>
+
+            <div class="stat-card progress-card">
+
+                <h2 id="progressReports">0</h2>
+
+                <p>In Progress</p>
+
+            </div>
+
+            <div class="stat-card resolved-card">
+
+                <h2 id="resolvedReports">0</h2>
+
+                <p>Resolved</p>
+
+            </div>
+
+        </section>
+
+
+
+
+
+        <!-- ==========================================
+CHARTS
+========================================== -->
+
+        <section class="charts-grid">
+
+            <div class="chart-card">
+
+                <h3>
+
+                    Complaint Status
+
+                </h3>
+
+                <canvas id="statusChart"></canvas>
+
+            </div>
+
+            <div class="chart-card">
+
+                <h3>
+
+                    Complaints by Category
+
+                </h3>
+
+                <canvas id="categoryChart"></canvas>
+
+            </div>
+
+        </section>
+
+
+
+
+
+        <!-- ==========================================
+TODAY SUMMARY
+========================================== -->
+
+        <section class="profile-section">
+
+            <h2>
+
+                Today's Summary
+
+            </h2>
+
+            <div class="profile-grid">
+
+                <div class="profile-item">
+
+                    <label>
+
+                        Today's Reports
+
+                    </label>
+
+                    <span id="todayReports">
+
+                        0
+
+                    </span>
+
+                </div>
+
+                <div class="profile-item">
+
+                    <label>
+
+                        Pending Cases
+
+                    </label>
+
+                    <span id="todayPending">
+
+                        0
+
+                    </span>
+
+                </div>
+
+                <div class="profile-item">
+
+                    <label>
+
+                        Resolved Cases
+
+                    </label>
+
+                    <span id="todayResolved">
+
+                        0
+
+                    </span>
+
+                </div>
+
+                <div class="profile-item">
+
+                    <label>
+
+                        Completion Rate
+
+                    </label>
+
+                    <span id="completionRate">
+
+                        0%
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+BOTTOM NAVIGATION
+========================================== -->
+
+        <nav class="admin-bottom-nav">
+
+            <a href="admin.html" id="adminDashboardNav" class="admin-nav-item active">
+
+                <span>🏠</span>
+
+                <small>Dashboard</small>
+
+            </a>
+
+            <a href="admin-complaints.html" id="adminComplaintNav" class="admin-nav-item">
+
+                <span>📋</span>
+
+                <small>Complaints</small>
+
+            </a>
+
+            <a href="admin-analytics.html" id="adminAnalyticsNav" class="admin-nav-item">
+
+                <span>📊</span>
+
+                <small>Analytics</small>
+
+            </a>
+
+            <a href="admin-profile.html" id="adminProfileNav" class="admin-nav-item">
+
+                <span>👤</span>
+
+                <small>Profile</small>
+
+            </a>
+
+        </nav>
+
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script src="js/config.js"></script>
+
+        <script src="js/common.js"></script>
+
+        <script src="js/admin.js"></script>
+
+</body>
+
+</html>

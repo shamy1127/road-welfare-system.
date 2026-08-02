@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | Road Welfare System</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <h2>👤 My Profile</h2>
+
+        <button onclick="window.location.href='user.html'">
+            🏠 Dashboard
+        </button>
+
+    </header>
+
+    <!-- PROFILE HERO -->
+
+    <section class="profile-hero">
+
+        <div class="profile-avatar">
+
+            <span id="avatarLetter">A</span>
+
+        </div>
+
+        <h1 id="profileName">
+
+            Loading...
+
+        </h1>
+
+        <p id="profileEmail">
+
+            Loading...
+
+        </p>
+
+        <div class="profile-role">
+
+            Citizen
+
+        </div>
+
+    </section>
+
+    <!-- PROFILE STATS -->
+
+    <section class="user-stats">
+
+        <div class="stat-card">
+
+            <h2 id="totalReports">
+                0
+            </h2>
+
+            <p>Total Reports</p>
+
+        </div>
+
+        <div class="stat-card pending-card">
+
+            <h2 id="pendingReports">
+                0
+            </h2>
+
+            <p>Pending</p>
+
+        </div>
+
+        <div class="stat-card progress-card">
+
+            <h2 id="progressReports">
+                0
+            </h2>
+
+            <p>In Progress</p>
+
+        </div>
+
+        <div class="stat-card resolved-card">
+
+            <h2 id="resolvedReports">
+                0
+            </h2>
+
+            <p>Resolved</p>
+
+        </div>
+
+    </section>
+
+    <!-- PERSONAL INFORMATION -->
+
+    <section class="profile-section">
+
+        <h2>
+
+            Personal Information
+
+        </h2>
+
+        <div class="profile-grid">
+
+            <div class="profile-item">
+
+                <label>Full Name</label>
+
+                <span id="infoName">
+
+                    Loading...
+
+                </span>
+
+            </div>
+
+            <div class="profile-item">
+
+                <label>Email</label>
+
+                <span id="infoEmail">
+
+                    Loading...
+
+                </span>
+
+            </div>
+
+            <div class="profile-item">
+
+                <label>User ID</label>
+
+                <span id="infoId">
+
+                    Loading...
+
+                </span>
+
+            </div>
+
+            <div class="profile-item">
+
+                <label>Joined</label>
+
+                <span id="infoJoined">
+
+                    Loading...
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ACHIEVEMENT -->
+
+    <section class="achievement-card">
+
+        <div class="achievement-icon">
+
+            🏅
+
+        </div>
+
+        <div>
+
+            <h2>
+
+                Road Guardian
+
+            </h2>
+
+            <p>
+
+                Thank you for helping improve roads by reporting public issues.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ACTIONS -->
+
+    <section class="profile-actions">
+
+        <button id="editProfileBtn">
+
+            ✏ Edit Profile
+
+        </button>
+
+        <button id="changePasswordBtn">
+
+            🔒 Change Password
+
+        </button>
+
+        <button onclick="logout()">
+
+            🚪 Logout
+
+        </button>
+
+    </section>
+
+    <!-- Bottom Navigation -->
+
+    <nav class="bottom-nav">
+
+
+        <a href="user.html" class="nav-item">
+            <span>🏠</span>
+            <small>Dashboard</small>
+        </a>
+
+        <a href="reports.html" class="nav-item">
+            <span>📋</span>
+            <small>Reports</small>
+        </a>
+
+        <a href="profile.html" class="nav-item active">
+            <span>👤</span>
+            <small>Profile</small>
+        </a>
+
+    </nav>
+    </nav>
+
+    <!-- SCRIPTS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/config.js"></script>
+
+    <script src="js/common.js"></script>
+
+    <script src="js/profile.js"></script>
+
+    <script src="js/navigation.js"></script>
+
+</body>
+
+</html>

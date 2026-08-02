@@ -1,0 +1,771 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:#eef4fb;
+    color:#1d3557;
+    overflow-x:hidden;
+
+}
+
+/*==============================
+BACKGROUND
+==============================*/
+
+.background{
+
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    overflow:hidden;
+
+}
+
+.circle{
+
+    position:absolute;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:.35;
+
+}
+
+.one{
+
+    width:280px;
+    height:280px;
+    background:#4dabf7;
+    top:-80px;
+    left:-80px;
+
+}
+
+.two{
+
+    width:240px;
+    height:240px;
+    background:#51cf66;
+    bottom:-60px;
+    right:-60px;
+
+}
+
+.three{
+
+    width:180px;
+    height:180px;
+    background:#74c0fc;
+    left:45%;
+    bottom:25%;
+
+}
+
+/*==============================
+CONTAINER
+==============================*/
+
+.container{
+
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:25px;
+
+}
+
+/*==============================
+MAIN CARD
+==============================*/
+
+.hero-card{
+
+    width:100%;
+    max-width:430px;
+
+    background:rgba(255,255,255,.88);
+
+    backdrop-filter:blur(16px);
+
+    border-radius:35px;
+
+    padding:35px 28px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.12);
+
+    text-align:center;
+
+}
+
+/*==============================
+LOGO
+==============================*/
+
+.logo-box{
+
+    margin-bottom:20px;
+
+}
+
+.logo-icon{
+
+    width:90px;
+
+    height:90px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:transparent;
+
+    box-shadow:none;
+
+}
+
+.logo-icon img{
+
+    width:90px;
+
+    height:90px;
+
+    object-fit:contain;
+
+}
+
+.logo-box h1{
+
+    margin-top:18px;
+
+    font-size:30px;
+
+    color:#0d47a1;
+
+    font-weight:700;
+
+}
+
+.logo-box p{
+
+    margin-top:8px;
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+/*==============================
+HERO IMAGE
+==============================*/
+
+.hero-image{
+
+    margin:30px 0;
+
+}
+
+.hero-image img{
+
+    width:180px;
+
+    max-width:100%;
+
+    animation:float 3s ease-in-out infinite;
+
+}
+
+/*==============================
+TEXT
+==============================*/
+
+.hero-text h2{
+
+    font-size:34px;
+
+    line-height:1.2;
+
+    color:#0d47a1;
+
+    margin-bottom:18px;
+
+}
+
+.hero-text p{
+
+    color:#555;
+
+    line-height:28px;
+
+    font-size:15px;
+
+}
+/*==============================
+FEATURE LIST
+==============================*/
+
+.feature-list{
+
+    margin-top:35px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+
+.feature-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:18px;
+
+    background:white;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+
+
+.feature-item:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+
+
+.feature-item span{
+
+    width:55px;
+
+    height:55px;
+
+    min-width:55px;
+
+    border-radius:16px;
+
+    background:#1565c0;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:26px;
+
+}
+
+
+
+.feature-item div{
+
+    text-align:left;
+
+}
+
+
+
+.feature-item h3{
+
+    font-size:18px;
+
+    color:#1565c0;
+
+    margin-bottom:5px;
+
+}
+
+
+
+.feature-item p{
+
+    font-size:14px;
+
+    color:#666;
+
+    line-height:22px;
+
+}
+
+
+
+/*==============================
+BUTTONS
+==============================*/
+
+.action-buttons{
+
+    margin-top:35px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+
+
+.btn-primary{
+
+    text-decoration:none;
+
+    background:#1565c0;
+
+    color:white;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    box-shadow:0 12px 25px rgba(21,101,192,.35);
+
+}
+
+
+
+.btn-primary:hover{
+
+    transform:translateY(-3px);
+
+    background:#0d47a1;
+
+}
+
+
+
+.btn-secondary{
+
+    text-decoration:none;
+
+    border:2px solid #1565c0;
+
+    color:#1565c0;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+
+
+.btn-secondary:hover{
+
+    background:#1565c0;
+
+    color:white;
+
+}
+
+
+
+/*==============================
+CARD ANIMATION
+==============================*/
+
+.hero-card{
+
+    animation:fadeUp .8s ease;
+
+}
+
+
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+/*==============================
+FLOATING IMAGE
+==============================*/
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+/*==============================
+SCROLLBAR
+==============================*/
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+
+
+::-webkit-scrollbar-thumb{
+
+    background:#1565c0;
+
+    border-radius:10px;
+
+}
+
+
+
+::-webkit-scrollbar-track{
+
+    background:#eef4fb;
+
+}
+/*==================================
+RESPONSIVE DESIGN
+==================================*/
+
+@media (max-width:480px){
+
+.hero-card{
+
+    padding:28px 20px;
+
+    border-radius:28px;
+
+}
+
+.logo-icon{
+
+    width:75px;
+    height:75px;
+    font-size:38px;
+
+}
+
+.logo-box h1{
+
+    font-size:24px;
+
+}
+
+.logo-box p{
+
+    font-size:14px;
+
+}
+
+.hero-image{
+
+    margin:25px 0;
+
+}
+
+.hero-image img{
+
+    width:150px;
+
+}
+
+.hero-text h2{
+
+    font-size:28px;
+
+}
+
+.hero-text p{
+
+    font-size:14px;
+
+    line-height:24px;
+
+}
+
+.feature-item{
+
+    padding:16px;
+
+    gap:14px;
+
+}
+
+.feature-item span{
+
+    width:48px;
+    height:48px;
+    min-width:48px;
+
+    font-size:22px;
+
+    border-radius:14px;
+
+}
+
+.feature-item h3{
+
+    font-size:16px;
+
+}
+
+.feature-item p{
+
+    font-size:13px;
+
+    line-height:20px;
+
+}
+
+.btn-primary,
+.btn-secondary{
+
+    font-size:15px;
+
+    padding:15px;
+
+}
+
+}
+
+
+/*==================================
+TABLET
+==================================*/
+
+@media (min-width:768px){
+
+.hero-card{
+
+    max-width:520px;
+
+    padding:45px;
+
+}
+
+.hero-image img{
+
+    width:220px;
+
+}
+
+.hero-text h2{
+
+    font-size:40px;
+
+}
+
+.hero-text p{
+
+    font-size:17px;
+
+    line-height:30px;
+
+}
+
+.feature-item{
+
+    padding:20px;
+
+}
+
+.feature-item span{
+
+    width:60px;
+    height:60px;
+    min-width:60px;
+
+    font-size:28px;
+
+}
+
+.btn-primary,
+.btn-secondary{
+
+    font-size:18px;
+
+}
+
+}
+
+
+/*==================================
+LARGE DEVICES
+==================================*/
+
+@media (min-width:1200px){
+
+.container{
+
+    padding:60px;
+
+}
+
+.hero-card{
+
+    max-width:560px;
+
+}
+
+}
+
+
+/*==================================
+GLASS EFFECT
+==================================*/
+
+.hero-card{
+
+    border:1px solid rgba(255,255,255,.6);
+
+}
+
+.feature-item{
+
+    border:1px solid rgba(21,101,192,.08);
+
+}
+
+
+/*==================================
+ACTIVE EFFECT
+==================================*/
+
+.btn-primary:active{
+
+    transform:scale(.98);
+
+}
+
+.btn-secondary:active{
+
+    transform:scale(.98);
+
+}
+
+.feature-item:active{
+
+    transform:scale(.98);
+
+}
+
+
+/*==================================
+SMOOTH TRANSITIONS
+==================================*/
+
+a,
+button,
+.feature-item{
+
+    transition:all .3s ease;
+
+}
+
+
+/*==================================
+SELECTION
+==================================*/
+
+::selection{
+
+    background:#1565c0;
+
+    color:white;
+
+}
+
+
+/*==================================
+REMOVE BLUE TAP HIGHLIGHT
+==================================*/
+
+*{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+/*==================================
+SAFE AREA SUPPORT
+==================================*/
+
+body{
+
+    padding-bottom:env(safe-area-inset-bottom);
+
+}
+
+
+/*==================================
+FINISH
+==================================*/

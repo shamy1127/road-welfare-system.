@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Complaint Details | Road Welfare System</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+    <header class="navbar">
+
+        <div>
+
+            <h2>
+                🚧 Road Welfare System
+            </h2>
+
+            <p>
+                Complaint Details
+            </p>
+
+        </div>
+
+
+        <button onclick="history.back()">
+
+            ⬅ Back
+
+        </button>
+
+
+    </header>
+
+
+
+
+
+
+    <div class="dashboard-container">
+
+
+        <div class="complaint-layout">
+
+
+
+            <!-- MAIN SECTION -->
+
+            <div class="complaint-main card">
+
+
+
+                <img id="complaintImage" class="complaint-big-image" style="display:none;">
+
+
+
+
+
+                <h1 id="title">
+
+                    Loading complaint...
+
+                </h1>
+
+
+
+
+
+                <div class="status-box">
+
+                    <span>
+                        Current Status
+                    </span>
+
+
+                    <strong id="status">
+
+                    </strong>
+
+
+                </div>
+
+
+
+
+
+
+
+                <h3>
+                    📝 Description
+                </h3>
+
+
+                <p id="description" class="description-text">
+
+                </p>
+
+
+
+
+
+
+                <div class="info-grid">
+
+
+
+                    <div class="info-card">
+
+                        <h4>
+                            📂 Category
+                        </h4>
+
+                        <p id="category"></p>
+
+                    </div>
+
+
+
+
+
+                    <div class="info-card">
+
+                        <h4>
+                            📅 Submitted
+                        </h4>
+
+                        <p id="date"></p>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- SIDE SECTION -->
+
+            <div class="complaint-side">
+
+
+
+
+
+                <div class="card">
+
+
+                    <h2>
+                        📍 Location
+                    </h2>
+
+
+
+                    <p id="address"></p>
+
+
+
+
+                    <button id="mapButton">
+
+                        🗺 Open Google Maps
+
+                    </button>
+
+
+
+
+
+                    <p>
+
+                        Latitude
+
+                        <br>
+
+                        <span id="latitude"></span>
+
+                    </p>
+
+
+
+
+
+                    <p>
+
+                        Longitude
+
+                        <br>
+
+                        <span id="longitude"></span>
+
+                    </p>
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="card action-card">
+
+
+                    <h2>
+                        ⚙ Actions
+                    </h2>
+
+
+
+                    <button id="editButton">
+
+                        ✏ Edit Complaint
+
+                    </button>
+
+
+
+
+
+                    <button id="pdfButton">
+
+                        📄 Download PDF
+
+                    </button>
+
+
+
+
+
+
+                    <button id="deleteButton" class="danger-btn">
+
+                        🗑 Delete Complaint
+
+                    </button>
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <script src="js/config.js"></script>
+
+    <script src="js/common.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="js/complaint.js"></script>
+
+
+</body>
+
+</html>

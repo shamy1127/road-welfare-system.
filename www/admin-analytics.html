@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Admin Analytics | Road Welfare System</title>
+
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+<div>
+
+<h2>
+📊 Admin Analytics
+</h2>
+
+<p>
+Complaint Insights
+</p>
+
+</div>
+
+
+<button onclick="logout()">
+
+Logout
+
+</button>
+
+
+</header>
+
+
+
+
+<div class="dashboard-container">
+
+
+<h1>
+System Analytics
+</h1>
+
+
+
+<!-- STATISTICS -->
+
+
+<div class="admin-stats">
+
+
+<div class="stat-card">
+
+<h2 id="analyticsTotal">
+0
+</h2>
+
+<p>
+Total Complaints
+</p>
+
+</div>
+
+
+
+<div class="stat-card pending-card">
+
+<h2 id="analyticsPending">
+0
+</h2>
+
+<p>
+Pending
+</p>
+
+</div>
+
+
+
+<div class="stat-card progress-card">
+
+<h2 id="analyticsProgress">
+0
+</h2>
+
+<p>
+In Progress
+</p>
+
+</div>
+
+
+
+<div class="stat-card resolved-card">
+
+<h2 id="analyticsResolved">
+0
+</h2>
+
+<p>
+Resolved
+</p>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<!-- CHARTS -->
+
+
+<div class="charts-grid">
+
+
+<div class="chart-card">
+
+<h3>
+Complaint Status
+</h3>
+
+
+<canvas id="statusAnalyticsChart"></canvas>
+
+
+</div>
+
+
+
+
+<div class="chart-card">
+
+<h3>
+Complaint Categories
+</h3>
+
+
+<canvas id="categoryAnalyticsChart"></canvas>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="chart-card">
+
+
+<h3>
+Monthly Complaint Trend
+</h3>
+
+
+<canvas id="monthlyChart"></canvas>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<!-- ADMIN NAVIGATION -->
+
+
+<nav class="admin-bottom-nav">
+
+
+<a href="admin.html"
+class="admin-nav-item">
+
+
+<span>
+🏠
+</span>
+
+
+<small>
+Dashboard
+</small>
+
+
+</a>
+
+
+
+<a href="admin-complaints.html"
+class="admin-nav-item">
+
+
+<span>
+📋
+</span>
+
+
+<small>
+Complaints
+</small>
+
+
+</a>
+
+
+
+
+<a href="admin-analytics.html"
+class="admin-nav-item active">
+
+
+<span>
+📊
+</span>
+
+
+<small>
+Analytics
+</small>
+
+
+</a>
+
+
+
+
+
+<a href="admin-profile.html"
+class="admin-nav-item">
+
+
+<span>
+👤
+</span>
+
+
+<small>
+Admin
+</small>
+
+
+</a>
+
+
+
+</nav>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/config.js"></script>
+
+<script src="js/common.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script src="js/admin-analytics.js"></script>
+
+
+
+</body>
+
+</html>

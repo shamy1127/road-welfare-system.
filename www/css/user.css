@@ -1,0 +1,221 @@
+/* ==========================================
+   ROAD WELFARE SYSTEM
+   USER DASHBOARD
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:#eef3fb;
+    color:#1e293b;
+
+}
+
+/* =========================
+NAVBAR
+========================= */
+
+.navbar{
+
+    height:80px;
+
+    padding:0 50px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+
+    color:white;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+.navbar h2{
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.nav-actions{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:center;
+
+}
+
+.navbar button{
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:12px 20px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.navbar button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* Logout */
+
+.nav-actions button:last-child{
+
+    background:#ef4444;
+
+    color:white;
+
+}
+
+/* Notification */
+
+#notificationBtn{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    background:white;
+
+    font-size:22px;
+
+    position:relative;
+
+}
+
+#notificationCount{
+
+    position:absolute;
+
+    top:-5px;
+
+    right:-5px;
+
+    background:#ef4444;
+
+    color:white;
+
+    border-radius:50%;
+
+    width:22px;
+
+    height:22px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+
+    margin:40px;
+
+    border-radius:25px;
+
+    padding:60px;
+
+    background:
+    linear-gradient(135deg,#2563eb,#3b82f6,#60a5fa);
+
+    color:white;
+
+    box-shadow:0 20px 40px rgba(37,99,235,.25);
+
+}
+
+.hero h1{
+
+    font-size:45px;
+
+    margin-bottom:20px;
+
+}
+
+.hero p{
+
+    width:70%;
+
+    line-height:1.8;
+
+    font-size:18px;
+
+    opacity:.95;
+
+}
+
+.hero button{
+
+    margin-top:30px;
+
+    background:white;
+
+    color:#2563eb;
+
+    border:none;
+
+    padding:16px 35px;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.hero button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+}
