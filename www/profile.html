@@ -21,210 +21,219 @@
 
     <header class="navbar">
 
-        <h2>👤 My Profile</h2>
+        <div>
+
+            <h2>👤 My Profile</h2>
+
+            <p>Citizen Information</p>
+
+        </div>
 
         <button onclick="window.location.href='user.html'">
+
             🏠 Dashboard
+
         </button>
 
     </header>
 
-    <!-- PROFILE HERO -->
+    <!-- PROFILE -->
 
-    <section class="profile-hero">
+    <div class="dashboard-container">
 
-        <div class="profile-avatar">
+        <section class="user-profile-wrapper">
 
-            <span id="avatarLetter">A</span>
+            <div class="user-profile-card">
 
-        </div>
+                <!-- TOP -->
 
-        <h1 id="profileName">
+                <div class="user-profile-top">
 
-            Loading...
+                    <div class="profile-avatar">
 
-        </h1>
+                        <img id="profileImage" src="https://placehold.co/200x200?text=👤" alt="Profile Picture">
 
-        <p id="profileEmail">
+                        <label for="avatarInput" class="camera-btn">
 
-            Loading...
+                            📷
 
-        </p>
+                        </label>
 
-        <div class="profile-role">
+                        <input type="file" id="avatarInput" accept="image/*" hidden>
 
-            Citizen
+                    </div>
 
-        </div>
+                    <h1 id="profileName">
 
-    </section>
+                        Loading...
 
-    <!-- PROFILE STATS -->
+                    </h1>
 
-    <section class="user-stats">
+                    <p id="profileEmail">
 
-        <div class="stat-card">
+                        Loading...
 
-            <h2 id="totalReports">
-                0
-            </h2>
+                    </p>
 
-            <p>Total Reports</p>
+                    <span class="user-badge">
 
-        </div>
+                        VERIFIED CITIZEN
 
-        <div class="stat-card pending-card">
+                    </span>
 
-            <h2 id="pendingReports">
-                0
-            </h2>
+                </div>
 
-            <p>Pending</p>
+                <!-- DETAILS -->
 
-        </div>
+                <div class="user-details">
 
-        <div class="stat-card progress-card">
+                    <div class="user-detail-card">
 
-            <h2 id="progressReports">
-                0
-            </h2>
+                        <span>
+                            👤 Full Name
+                        </span>
 
-            <p>In Progress</p>
+                        <strong id="infoName">
 
-        </div>
+                            Loading...
 
-        <div class="stat-card resolved-card">
+                        </strong>
 
-            <h2 id="resolvedReports">
-                0
-            </h2>
+                    </div>
 
-            <p>Resolved</p>
+                    <div class="user-detail-card">
 
-        </div>
+                        <span>
+                            📧 Email
+                        </span>
 
-    </section>
+                        <strong id="infoEmail">
 
-    <!-- PERSONAL INFORMATION -->
+                            Loading...
 
-    <section class="profile-section">
+                        </strong>
 
-        <h2>
+                    </div>
 
-            Personal Information
+                    <div class="user-detail-card">
 
-        </h2>
+                        <span>
+                            🆔 User ID
+                        </span>
 
-        <div class="profile-grid">
+                        <strong id="infoId">
 
-            <div class="profile-item">
+                            Loading...
 
-                <label>Full Name</label>
+                        </strong>
 
-                <span id="infoName">
+                    </div>
 
-                    Loading...
+                    <div class="user-detail-card">
 
-                </span>
+                        <span>
+                            📅 Joined
+                        </span>
+
+                        <strong id="infoJoined">
+
+                            Loading...
+
+                        </strong>
+
+                    </div>
+
+                    <div class="user-detail-card">
+
+                        <span>
+                            📋 Reports
+                        </span>
+
+                        <strong id="totalReports">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                    <div class="user-detail-card">
+
+                        <span>
+                            ✅ Resolved
+                        </span>
+
+                        <strong id="resolvedReports">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <!-- ACHIEVEMENT -->
+
+                <div class="achievement-card">
+
+                    <div class="achievement-icon">
+
+                        🏅
+
+                    </div>
+
+                    <div>
+
+                        <h2>
+
+                            Road Guardian
+
+                        </h2>
+
+                        <p>
+
+                            Thank you for helping improve roads by reporting issues.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ACTIONS -->
+
+                <div class="user-profile-actions">
+
+                    <button id="editProfileBtn">
+
+                        ✏ Edit Profile
+
+                    </button>
+
+                    <button id="changePasswordBtn">
+
+                        🔒 Password
+
+                    </button>
+
+                    <button onclick="window.location.href='reports.html'">
+
+                        📋 Reports
+
+                    </button>
+
+                </div>
 
             </div>
 
-            <div class="profile-item">
+        </section>
 
-                <label>Email</label>
-
-                <span id="infoEmail">
-
-                    Loading...
-
-                </span>
-
-            </div>
-
-            <div class="profile-item">
-
-                <label>User ID</label>
-
-                <span id="infoId">
-
-                    Loading...
-
-                </span>
-
-            </div>
-
-            <div class="profile-item">
-
-                <label>Joined</label>
-
-                <span id="infoJoined">
-
-                    Loading...
-
-                </span>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- ACHIEVEMENT -->
-
-    <section class="achievement-card">
-
-        <div class="achievement-icon">
-
-            🏅
-
-        </div>
-
-        <div>
-
-            <h2>
-
-                Road Guardian
-
-            </h2>
-
-            <p>
-
-                Thank you for helping improve roads by reporting public issues.
-
-            </p>
-
-        </div>
-
-    </section>
-
-    <!-- ACTIONS -->
-
-    <section class="profile-actions">
-
-        <button id="editProfileBtn">
-
-            ✏ Edit Profile
-
-        </button>
-
-        <button id="changePasswordBtn">
-
-            🔒 Change Password
-
-        </button>
-
-        <button onclick="logout()">
-
-            🚪 Logout
-
-        </button>
-
-    </section>
+    </div>
 
     <!-- Bottom Navigation -->
 
     <nav class="bottom-nav">
-
 
         <a href="user.html" class="nav-item">
             <span>🏠</span>
@@ -242,9 +251,6 @@
         </a>
 
     </nav>
-    </nav>
-
-    <!-- SCRIPTS -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 

@@ -5,43 +5,59 @@
 
 "use strict";
 
-let allReports = [];
+let currentUser = null;
+let userProfile = null;
+let dashboardReports = [];
 
 // ==========================================
 // INITIALIZE DASHBOARD
 // ==========================================
 
-async function initDashboard() {
+document.addEventListener("DOMContentLoaded", async () => {
 
-    const user = await getCurrentUser();
+    await initializeDashboard();
 
+});
 
-    if (!user) {
-
-        window.location.href = "login.html";
-        return;
-
-    }
+async function initializeDashboard() {
 
 
-    await loadProfile(user.id);
+    await safeDashboardLoad(async () => {
 
-    await loadDashboardStats(user.id);
+
+        currentUser = await getCurrentUser();
+
+
+        if (!currentUser) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        await loadUserProfile();
+
+        await loadDashboardStatistics();
+
+
+
+    });
+
 
 }
 
-
-
 // ==========================================
-// LOAD PROFILE
+// LOAD USER PROFILE
 // ==========================================
 
-async function loadProfile(userId) {
-
+async function loadUserProfile() {
 
     const {
 
-        data: profile,
+        data,
 
         error
 
@@ -51,117 +67,377 @@ async function loadProfile(userId) {
 
         .select("*")
 
-        .eq("id", userId)
+        .eq("id", currentUser.id)
 
         .single();
-
-
 
     if (error) {
 
         console.error("Profile Error:", error);
+
         return;
 
     }
 
+    userProfile = data;
 
+    updateProfileUI();
 
-    const username =
-        document.getElementById("username");
+}
 
-    if (username) {
+// ==========================================
+// UPDATE USER INTERFACE
+// ==========================================
 
-        username.innerText =
-            profile.full_name;
+function updateProfileUI() {
+
+    if (!userProfile) return;
+
+    const navbarName = document.getElementById("username");
+
+    const heroName = document.getElementById("usernameHero");
+
+    const fullName =
+        userProfile.full_name || "Citizen";
+
+    const firstName =
+        fullName.split(" ")[0];
+
+    if (navbarName) {
+
+        navbarName.innerText = firstName;
 
     }
-
-    const heroName =
-        document.getElementById("usernameHero");
 
     if (heroName) {
 
-        heroName.innerText =
-            profile.full_name;
+        heroName.innerText = fullName;
 
     }
 
-
 }
-
-
-
 // ==========================================
-// LOAD DASHBOARD
+// LOAD DASHBOARD STATISTICS
 // ==========================================
 
+async function loadDashboardStatistics() {
 
+    const {
 
-async function loadDashboardStats(userId) {
+        data,
 
-    const { data: reports, error } = await window.supabaseClient
+        error
+
+    } = await window.supabaseClient
+
         .from("reports")
-        .select("status")
-        .eq("user_id", userId);
+
+        .select("*")
+
+        .eq("user_id", currentUser.id);
 
     if (error) {
-        console.error(error);
+
+        console.error("Dashboard Error:", error);
+
         return;
+
     }
 
-    updateStatistics(reports);
+    dashboardReports = data || [];
+
+    updateStatistics();
 
 }
 
-
-
-
-
 // ==========================================
-// USER STATISTICS
+// UPDATE STATISTICS
 // ==========================================
 
-function updateStatistics(reports) {
-
-    if (!reports) return;
+function updateStatistics() {
 
     const total =
-        document.getElementById("totalReports");
+        dashboardReports.length;
 
     const pending =
-        document.getElementById("pendingReports");
+        dashboardReports.filter(report =>
+            normalizeStatus(report.status) === "pending"
+        ).length;
 
     const progress =
-        document.getElementById("progressReports");
+        dashboardReports.filter(report =>
+            normalizeStatus(report.status) === "in progress"
+        ).length;
 
     const resolved =
-        document.getElementById("resolvedReports");
+        dashboardReports.filter(report =>
+            normalizeStatus(report.status) === "resolved"
+        ).length;
 
-    if (total)
-        total.innerText = reports.length;
+    setText("totalReports", total);
 
-    if (pending)
-        pending.innerText =
-            reports.filter(r => r.status === "Pending").length;
+    setText("pendingReports", pending);
 
-    if (progress)
-        progress.innerText =
-            reports.filter(r => r.status === "In Progress").length;
+    setText("progressReports", progress);
 
-    if (resolved)
-        resolved.innerText =
-            reports.filter(r => r.status === "Resolved").length;
+    setText("resolvedReports", resolved);
+
+}
+
+// ==========================================
+// NORMALIZE STATUS
+// ==========================================
+
+function normalizeStatus(status) {
+
+    if (!status) return "";
+
+    return status
+        .toString()
+        .trim()
+        .toLowerCase();
+
+}
+
+// ==========================================
+// SAFE TEXT UPDATE
+// ==========================================
+
+function setText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.innerText = value;
+
+    }
+
+}
+// ==========================================
+// REALTIME DASHBOARD
+// ==========================================
+
+let dashboardChannel = null;
+
+async function startRealtimeDashboard() {
+
+    if (!currentUser) return;
+
+    if (dashboardChannel) {
+
+        window.supabaseClient.removeChannel(dashboardChannel);
+
+    }
+
+    dashboardChannel = window.supabaseClient
+
+        .channel("dashboard-realtime")
+
+        .on(
+
+            "postgres_changes",
+
+            {
+
+                event: "*",
+
+                schema: "public",
+
+                table: "reports",
+
+                filter: `user_id=eq.${currentUser.id}`
+
+            },
+
+            async () => {
+
+                console.log("Dashboard updated.");
+
+                await loadDashboardStatistics();
+
+            }
+
+        )
+
+        .subscribe(status => {
+
+            console.log("Realtime:", status);
+
+        });
+
+}
+
+// ==========================================
+// REFRESH DASHBOARD
+// ==========================================
+
+async function refreshDashboard() {
+
+    await loadUserProfile();
+
+    await loadDashboardStatistics();
+
+}
+
+// ==========================================
+// PAGE VISIBILITY
+// ==========================================
+
+document.addEventListener("visibilitychange", async () => {
+
+    if (
+
+        document.visibilityState === "visible" &&
+
+        currentUser
+
+    ) {
+
+        await refreshDashboard();
+
+    }
+
+});
+
+// ==========================================
+// PULL TO REFRESH (Future Mobile)
+// ==========================================
+
+window.refreshDashboard = refreshDashboard;
+
+// ==========================================
+// START REALTIME
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+
+    await initializeDashboard();
+
+    startRealtimeDashboard();
+
+
+});
+// ==========================================
+// DASHBOARD LOADING SYSTEM
+// ==========================================
+
+function showDashboardLoader() {
+
+    const loader =
+        document.getElementById("dashboardLoader");
+
+    if (loader) {
+
+        loader.style.display = "flex";
+
+    }
 
 }
 
 
+// ==========================================
+// HIDE LOADER
+// ==========================================
 
+function hideDashboardLoader() {
+
+    const loader =
+        document.getElementById("dashboardLoader");
+
+    if (loader) {
+
+        loader.style.display = "none";
+
+    }
+
+}
 
 
 // ==========================================
-// START
+// DASHBOARD ERROR MESSAGE
 // ==========================================
 
-initDashboard();
+function showDashboardError(message) {
+
+    const errorBox =
+        document.getElementById("dashboardError");
 
 
+    if (errorBox) {
+
+        errorBox.innerText = message;
+
+        errorBox.style.display = "block";
+
+    }
+
+    else {
+
+        console.error(message);
+
+    }
+
+}
+
+
+// ==========================================
+// HIDE ERROR
+// ==========================================
+
+function hideDashboardError() {
+
+    const errorBox =
+        document.getElementById("dashboardError");
+
+
+    if (errorBox) {
+
+        errorBox.style.display = "none";
+
+    }
+
+}
+
+
+// ==========================================
+// SAFE DASHBOARD LOAD WRAPPER
+// ==========================================
+
+async function safeDashboardLoad(callback) {
+
+    try {
+
+        showDashboardLoader();
+
+        hideDashboardError();
+
+
+        await callback();
+
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Dashboard Loading Error:",
+            error
+        );
+
+
+        showDashboardError(
+            "Unable to load dashboard data. Please try again."
+        );
+
+    }
+
+    finally {
+
+        hideDashboardLoader();
+
+    }
+
+}

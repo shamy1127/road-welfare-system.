@@ -53,18 +53,38 @@
     </header>
 
 
-
     <!-- ===========================
 NOTIFICATION PANEL
 =========================== -->
 
     <div id="notificationBox" class="notification-box">
 
-        <h3>🔔 Notifications</h3>
+        <div class="notification-header">
+
+            <div>
+                <h3>🔔 Notifications</h3>
+                <small>Stay updated about your complaints</small>
+            </div>
+
+            <button id="markAllRead">
+                ✓
+            </button>
+
+        </div>
 
         <div id="notificationList">
 
-            <p>No notifications</p>
+            <div class="empty-notification">
+
+                <div class="empty-icon">
+                    🔔
+                </div>
+
+                <h3>All Caught Up</h3>
+
+                <p>No new notifications.</p>
+
+            </div>
 
         </div>
 
@@ -139,11 +159,6 @@ STATISTICS
         </div>
 
     </section>
-
-
-
-
-
 
 
     <!-- ===========================
@@ -268,7 +283,18 @@ COMPLAINT DETAILS MODAL
         </a>
 
     </nav>
+    <!-- Dashboard Loader -->
 
+    <div id="dashboardLoader">
+
+        <div class="loader-circle"></div>
+
+    </div>
+
+
+    <!-- Dashboard Error -->
+
+    <div id="dashboardError"></div>
 
 </body>
 

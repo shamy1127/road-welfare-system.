@@ -77,10 +77,23 @@ async function loadProfile(userId) {
 
     }
 
-    document.getElementById("avatarLetter").innerText =
-        (profile.full_name || "C")
-        .charAt(0)
-        .toUpperCase();
+    const image = document.getElementById("profileImage");
+
+    if (profile.avatar_url) {
+
+        image.src = profile.avatar_url;
+
+    } else {
+
+        image.src =
+            "https://placehold.co/200x200?text=" +
+            encodeURIComponent(
+                (profile.full_name || "C")
+                    .charAt(0)
+                    .toUpperCase()
+            );
+
+    }
 
 }
 
@@ -104,6 +117,7 @@ async function loadStatistics(userId) {
 
         .eq("user_id", userId);
 
+
     if (error) {
 
         console.error(error);
@@ -112,107 +126,79 @@ async function loadStatistics(userId) {
 
     }
 
-    document.getElementById("totalReports").innerText =
+
+    const normalizeStatus = (status) => {
+
+        if (!status) return "";
+
+        return status
+            .toString()
+            .trim()
+            .toLowerCase();
+
+    };
+
+
+    const total =
         reports.length;
 
-    document.getElementById("pendingReports").innerText =
-        reports.filter(r => r.status === "Pending").length;
 
-    document.getElementById("progressReports").innerText =
-        reports.filter(r => r.status === "In Progress").length;
+    const resolved =
+        reports.filter(r =>
+            normalizeStatus(r.status) === "resolved"
+        ).length;
+
+
+
+    document.getElementById("totalReports").innerText =
+        total;
+
 
     document.getElementById("resolvedReports").innerText =
-        reports.filter(r => r.status === "Resolved").length;
+        resolved;
+
 
 }
-
-/* ==========================================
-EDIT PROFILE
-========================================== */
-
-document
-.getElementById("editProfileBtn")
-.addEventListener("click", async () => {
-
-    const currentName =
-        document.getElementById("infoName").innerText;
-
-    const newName = prompt(
-        "Enter your new name:",
-        currentName
-    );
-
-    if (!newName) return;
-
-    const user =
-        await getCurrentUser();
-
-    const { error } =
-        await window.supabaseClient
-
-        .from("profiles")
-
-        .update({
-
-            full_name: newName
-
-        })
-
-        .eq("id", user.id);
-
-    if (error) {
-
-        alert("Unable to update profile.");
-
-        return;
-
-    }
-
-    alert("Profile updated successfully.");
-
-    loadProfile(user.id);
-
-});
 
 /* ==========================================
 CHANGE PASSWORD
 ========================================== */
 
 document
-.getElementById("changePasswordBtn")
-.addEventListener("click", async () => {
+    .getElementById("changePasswordBtn")
+    .addEventListener("click", async () => {
 
-    const password =
-        prompt("Enter new password");
+        const password =
+            prompt("Enter new password");
 
-    if (!password) return;
+        if (!password) return;
 
-    if (password.length < 6) {
+        if (password.length < 6) {
 
-        alert("Password must contain at least 6 characters.");
+            alert("Password must contain at least 6 characters.");
 
-        return;
+            return;
 
-    }
+        }
 
-    const { error } =
-        await window.supabaseClient.auth.updateUser({
+        const { error } =
+            await window.supabaseClient.auth.updateUser({
 
-            password: password
+                password: password
 
-        });
+            });
 
-    if (error) {
+        if (error) {
 
-        alert(error.message);
+            alert(error.message);
 
-        return;
+            return;
 
-    }
+        }
 
-    alert("Password updated successfully.");
+        alert("Password updated successfully.");
 
-});
+    });
 
 /* ==========================================
 REALTIME PROFILE UPDATE
@@ -220,35 +206,121 @@ REALTIME PROFILE UPDATE
 
 window.supabaseClient
 
-.channel("profile-updates")
+    .channel("profile-updates")
 
-.on(
+    .on(
 
-    "postgres_changes",
+        "postgres_changes",
 
-    {
+        {
 
-        event: "*",
+            event: "*",
 
-        schema: "public",
+            schema: "public",
 
-        table: "profiles"
+            table: "profiles"
 
-    },
+        },
 
-    async () => {
+        async () => {
 
-        const user =
-            await getCurrentUser();
+            const user =
+                await getCurrentUser();
 
-        if (user) {
+            if (user) {
 
-            loadProfile(user.id);
+                loadProfile(user.id);
+
+            }
 
         }
 
+    )
+
+    .subscribe();
+
+/* ==========================================
+UPLOAD PROFILE PHOTO
+========================================== */
+
+document
+    .getElementById("avatarInput")
+    .addEventListener("change", uploadAvatar);
+
+async function uploadAvatar(e) {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const user = await getCurrentUser();
+
+    if (!user) return;
+
+    const extension =
+        file.name.split(".").pop();
+
+    const fileName =
+        `${user.id}.${extension}`;
+
+    const { error: uploadError } =
+        await window.supabaseClient.storage
+
+            .from("avatars")
+
+            .upload(fileName, file, {
+
+                upsert: true
+
+            });
+
+    if (uploadError) {
+
+        alert(uploadError.message);
+
+        return;
+
     }
 
-)
+    const {
 
-.subscribe();
+        data
+
+    } = window.supabaseClient.storage
+
+        .from("avatars")
+
+        .getPublicUrl(fileName);
+
+    const avatarUrl =
+        data.publicUrl +
+        "?t=" +
+        Date.now();
+
+    const { error: updateError } =
+        await window.supabaseClient
+
+            .from("profiles")
+
+            .update({
+
+                avatar_url: avatarUrl
+
+            })
+
+            .eq("id", user.id);
+
+    if (updateError) {
+
+        alert(updateError.message);
+
+        return;
+
+    }
+
+    document.getElementById("profileImage").src =
+        avatarUrl;
+
+    alert("Profile picture updated!");
+
+}
