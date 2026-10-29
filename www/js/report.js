@@ -221,6 +221,15 @@ async function submitReport(e){
     document.getElementById("image")
     .files[0];
 
+    if(imageFile && (latitude === null || longitude === null)){
+
+        alert(
+            "Capture your current location before uploading a geo-tagged report photo."
+        );
+
+        return;
+
+    }
 
 
     try{

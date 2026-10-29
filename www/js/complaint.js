@@ -66,6 +66,22 @@ async function loadComplaint() {
         img.style.display = "none";
     }
 
+    const reviewPhotos = Array.isArray(report.after_review_image_urls)
+        ? report.after_review_image_urls
+        : [];
+    const reviewPhotosSection = document.getElementById("reviewPhotosSection");
+    const reviewPhotosGallery = document.getElementById("reviewPhotosGallery");
+    reviewPhotosGallery.replaceChildren();
+
+    reviewPhotos.forEach((url, index) => {
+        const image = document.createElement("img");
+        image.src = url;
+        image.alt = `After-review photo ${index + 1}`;
+        reviewPhotosGallery.appendChild(image);
+    });
+
+    reviewPhotosSection.hidden = reviewPhotos.length === 0;
+
     // ==========================
     // GOOGLE MAP
     // ==========================
@@ -141,6 +157,17 @@ pdfButton.onclick = async function () {
 
         return;
 
+    }
+
+    if (window.downloadReportPdf) {
+        try {
+            await window.downloadReportPdf(currentReport);
+        } catch (error) {
+            console.error("PDF generation failed:", error);
+            alert(error.message);
+        }
+
+        return;
     }
 
     const { jsPDF } = window.jspdf;

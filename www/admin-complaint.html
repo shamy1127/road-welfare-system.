@@ -418,6 +418,24 @@ Resolved
 
 </div>
 
+<div class="card">
+
+<h2>📷 After-review Photos</h2>
+
+<p>Share photos showing the work completed or the issue after review.</p>
+
+<form id="reviewPhotoForm">
+<label for="reviewPhotos">Select one or more review photos</label>
+<input type="file" id="reviewPhotos" accept="image/*" multiple required>
+<button type="submit" id="uploadReviewPhotosButton">Upload Review Photos</button>
+</form>
+
+<p id="reviewPhotoMessage" role="status"></p>
+<div id="adminReviewPhotos" class="review-photo-gallery"></div>
+
+</div>
+
+
 
 
 
@@ -456,6 +474,7 @@ Resolved
 <script src="js/config.js"></script>
 
 <script src="js/common.js"></script>
+<script src="js/report-pdf.js"></script>
 
 <script src="js/admin-complaint.js"></script>
 

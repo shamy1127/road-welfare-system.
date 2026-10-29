@@ -330,9 +330,142 @@ function displayComplaint(report){
 
     report.status;
 
+    displayReviewPhotos(
+        report.after_review_image_urls || []
+    );
 
 
 }
+
+function displayReviewPhotos(urls) {
+
+    const gallery = document.getElementById("adminReviewPhotos");
+
+    if (!gallery) return;
+
+    gallery.replaceChildren();
+
+    urls.forEach((url, index) => {
+        const image = document.createElement("img");
+        image.src = url;
+        image.alt = `After-review photo ${index + 1}`;
+        gallery.appendChild(image);
+    });
+
+}
+
+
+document
+.getElementById("reviewPhotoForm")
+?.addEventListener("submit", async event => {
+
+    event.preventDefault();
+
+    const input = document.getElementById("reviewPhotos");
+    const button = document.getElementById("uploadReviewPhotosButton");
+    const message = document.getElementById("reviewPhotoMessage");
+    const files = Array.from(input.files || []);
+
+    if (!files.length || !complaintData) return;
+
+    if (files.some(file => !file.type.startsWith("image/"))) {
+        message.textContent = "Please select image files only.";
+        return;
+    }
+
+    button.disabled = true;
+    message.textContent = "Uploading review photos...";
+
+    const uploadedPaths = [];
+    let reviewPhotoUrls;
+
+    try {
+        const uploadedUrls = [];
+
+        for (const [index, file] of files.entries()) {
+            const safeFileName = file.name.replace(/[^\w.-]/g, "_");
+            const filePath = `${complaintId}/review/${Date.now()}_${index}_${safeFileName}`;
+            const { error: uploadError } = await window.supabaseClient.storage
+                .from("road-images")
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            uploadedPaths.push(filePath);
+
+            const { data } = window.supabaseClient.storage
+                .from("road-images")
+                .getPublicUrl(filePath);
+
+            uploadedUrls.push(data.publicUrl);
+        }
+
+        reviewPhotoUrls = [
+            ...(complaintData.after_review_image_urls || []),
+            ...uploadedUrls
+        ];
+
+        const { error } = await window.supabaseClient
+            .from("reports")
+            .update({ after_review_image_urls: reviewPhotoUrls })
+            .eq("id", complaintId);
+
+        if (error) throw error;
+    } catch (error) {
+        console.error("Review photo upload failed:", error);
+        button.disabled = false;
+        let cleanupError = null;
+
+        if (uploadedPaths.length) {
+            try {
+                const { error: removeError } = await window.supabaseClient.storage
+                    .from("road-images")
+                    .remove(uploadedPaths);
+                cleanupError = removeError;
+            } catch (removeError) {
+                cleanupError = removeError;
+            }
+        }
+
+        if (cleanupError) {
+            console.error("Unable to remove incomplete review photo uploads:", cleanupError);
+            message.textContent = `Unable to upload review photos: ${error.message}. Cleanup also failed: ${cleanupError.message}`;
+        } else {
+            message.textContent = `Unable to upload review photos: ${error.message}`;
+        }
+
+        return;
+    }
+
+    complaintData.after_review_image_urls = reviewPhotoUrls;
+    displayReviewPhotos(reviewPhotoUrls);
+    input.value = "";
+
+    try {
+        const { error: notificationError } = await window.supabaseClient
+            .from("notifications")
+            .insert({
+                user_id: complaintData.user_id,
+                report_id: complaintId,
+                title: "After-review photos added",
+                message: `New after-review photos are available for your report "${complaintData.title}".`
+            });
+
+        if (notificationError) {
+            console.error("Review photo notification failed:", notificationError);
+            message.textContent = `Photos uploaded, but the user notification failed: ${notificationError.message}`;
+        } else {
+            message.textContent = "Review photos uploaded and shared with the user.";
+        }
+    } catch (error) {
+        console.error("Review photo notification failed:", error);
+        message.textContent = `Photos uploaded, but the user notification failed: ${error.message}`;
+    } finally {
+        button.disabled = false;
+    }
+
+});
+
 // ==========================================
 // MAP BUTTON
 // ==========================================
@@ -685,217 +818,18 @@ document
 
 "click",
 
-()=>{
-
-
-
-    if(!complaintData)
-
-    return;
-
-
-
-
-    const {
-
-        jsPDF
-
-    } = window.jspdf;
-
-
-
-
-    const pdf =
-    new jsPDF();
-
-
-
-
-
-    pdf.setFontSize(18);
-
-
-    pdf.text(
-
-    "Road Welfare System",
-
-    20,
-
-    20
-
-    );
-
-
-
-    pdf.setFontSize(14);
-
-
-    pdf.text(
-
-    "Complaint Report",
-
-    20,
-
-    32
-
-    );
-
-
-
-
-
-
-    pdf.setFontSize(11);
-
-
-
-
-    let y = 50;
-
-
-
-
-
-    const addLine=(label,value)=>{
-
-
-        pdf.text(
-
-        `${label}: ${value}`,
-
-        20,
-
-        y
-
-        );
-
-
-        y += 10;
-
-
-    };
-
-
-
-
-
-    addLine(
-
-    "Title",
-
-    complaintData.title
-
-    );
-
-
-
-    addLine(
-
-    "Category",
-
-    complaintData.category
-
-    );
-
-
-
-    addLine(
-
-    "Status",
-
-    complaintData.status
-
-    );
-
-
-
-    addLine(
-
-    "Citizen",
-
-    complaintData.profiles?.full_name || "Unknown"
-
-    );
-
-
-
-    addLine(
-
-    "Email",
-
-    complaintData.profiles?.email || "-"
-
-    );
-
-
-
-    addLine(
-
-    "Phone",
-
-    complaintData.profiles?.phone || "-"
-
-    );
-
-
-
-    addLine(
-
-    "Date",
-
-    new Date(
-        complaintData.created_at
-    ).toLocaleString()
-
-    );
-
-
-
-
-
-    pdf.text(
-
-    "Description:",
-
-    20,
-
-    y + 5
-
-    );
-
-
-
-
-
-    pdf.text(
-
-    complaintData.description || "No description",
-
-    20,
-
-    y + 15,
-
-    {
-
-        maxWidth:160
-
+async ()=>{
+
+    if (!complaintData) return;
+
+    try {
+        await window.downloadReportPdf(complaintData, {
+            includeReporter: true
+        });
+    } catch (error) {
+        console.error("PDF generation failed:", error);
+        alert(error.message);
     }
-
-    );
-
-
-
-
-
-
-
-    pdf.save(
-
-    `Complaint_${complaintId}.pdf`
-
-    );
-
-
 
 }
 
