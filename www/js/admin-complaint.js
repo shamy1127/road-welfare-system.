@@ -157,6 +157,7 @@ function displayComplaint(report){
 
     if(report.image_url){
 
+        document.getElementById("beforePhotoHeading").style.display = "block";
 
         image.src =
         report.image_url;
@@ -166,6 +167,10 @@ function displayComplaint(report){
         "block";
 
 
+    }
+    else {
+        document.getElementById("beforePhotoHeading").style.display = "none";
+        image.style.display = "none";
     }
 
 
@@ -824,7 +829,8 @@ async ()=>{
 
     try {
         await window.downloadReportPdf(complaintData, {
-            includeReporter: true
+            includeReporter: true,
+            includeAfterReviewPhotos: true
         });
     } catch (error) {
         console.error("PDF generation failed:", error);
